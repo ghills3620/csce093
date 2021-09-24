@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Nykl_BattleShip">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/BattleShip/Nykl_BattleShip.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
