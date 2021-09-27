@@ -6,11 +6,13 @@ public class Cell
 	protected Ship ship = null;
 	
 	public Cell()
-	{		
+	{
+	draw();
 	}
 	
 	public boolean hasBeenStruckByMissile()
 	{
+		return(true);
 	}
 	
 	public void hasBeenStruckByMissile( boolean wasStruck )

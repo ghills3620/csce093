@@ -9,22 +9,59 @@ public class GameBoard
 	final String LINE_END = System.getProperty("line.separator"); 
 	
 	ArrayList< ArrayList< Cell > > cells;
-	ArrayList< Ship > myShips = new ArrayList<Ship>();
+	ArrayList< Ship > myShips = new ArrayList<>();
 	
 	public GameBoard( int rowCount, int colCount )
 	{
 		this.rowCount = rowCount;
 		this.colCount = colCount;
-		
-		//create the 2D array of cells
+
+		this.cells = new ArrayList< ArrayList< Cell > >();
+		for (int i = 0; i <= this.rowCount; i++)
+			this.cells.add(new ArrayList<>()); // creates first row
+
+		for (ArrayList<Cell> cell : cells)
+			for (int cols = 0; cols < this.colCount; ++cols)
+				cell.add(cols, new Cell());
 	}
 	
 	public String draw()
 	{
+		StringBuilder b = new StringBuilder();
+		b.append(LINE_END);
 
-		//draw the entire board... I'd use a StringBuilder object to improve speed
-		//remember - you must draw one entire row at a time, and don't forget the
-		//pretty border...
+		/* Top boarder */
+		for( int i = 0; i <= this.colCount; ++ i)
+		{
+			if (i == 0 || i == this.colCount)
+				b.append('+');
+			else
+				b.append('-');
+		}
+		b.append(LINE_END);
+
+		/* side boarder */
+		for( int i = 0; i <= this.colCount; ++ i)
+		{
+			for (int j = 0; j <= this.colCount; j++) {
+				if (j == 0 || j == this.rowCount)
+					b.append('|');
+				else
+					b.append(this.cells.get(i).get(j).draw());
+			}
+			b.append(LINE_END);
+		}
+
+			/* bottom boarder */
+			for( int i = 0; i <= this.colCount; ++ i)
+			{
+				if (i == 0 || i == this.colCount)
+					b.append('+');
+				else
+					b.append('-');
+		}
+		b.append(LINE_END);
+		return b.toString();
 	}
 	
 	//add in a ship if it fully 1) fits on the board and 2) doesn't collide w/
@@ -32,7 +69,7 @@ public class GameBoard
 	//Returns true on successful addition; false, otherwise
 	public boolean addShip( Ship s , Position sternLocation, HEADING bowDirection )
 	{
-		
+		return false;
 	}
 	
 	//Returns A reference to a ship, if that ship was struck by a missle.
@@ -41,7 +78,7 @@ public class GameBoard
 	//Ensure you handle missiles that may fly off the grid
 	public Ship fireMissle( Position coordinate )
 	{
-		
+		return null;
 	}
 	
 	//Here's a simple driver that should work without touching any of the code below this point

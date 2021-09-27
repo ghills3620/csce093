@@ -1,60 +1,46 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class NetExample
 {
-   private ServerSocket listener = null;
-   BufferedReader input_from_client = null;
-   PrintWriter out_to_client = null;
 
-   public NetExample(){}
+    public NetExample() // method
+    {   }
+        private ServerSocket listener = null; // 'listener' aka Serversocket for a client on a port
+        private BufferedReader input_from_client = null;
+        public void waitForClient () throws IOException // throws excpetion because it could fail
+        {
+            this.listener = new ServerSocket(10000); // say what port our listener should pay attnetion to
+            Socket clientSocket = this.listener.accept();
 
-   public void waitForConnect() throws IOException
-   {
-      try
-		{
-		    this.listener = new ServerSocket( 10000 );
-		    {
-		    	Socket clientSocket = listener.accept();
-            this.out_to_client = new PrintWriter( clientSocket.getOutputStream(), true );
-            this.input_from_client = new BufferedReader( new InputStreamReader(clientSocket.getInputStream() ) );
-            System.out.println( "A client has joined..." );
-            out_to_client.println( "           ...Welcome to my echo server..." ); 
-		    }
-		}
-		finally
-		{
-			System.out.println( "Done listening for client to join into Echo server..." );
-		}
-   }
-
-   public void echoClientInput() throws IOException
-   {
-      String s = "";
-      while(! s.equals("Q") )
-      {
-         s = this.input_from_client.readLine();
-         System.out.println(s);
-      }
-   }
-
-   public static void main( String [] args )
-   {
-      NetExample n = new NetExample();
-      try
-      {
-         n.waitForConnect();
-         n.echoClientInput();
-      }
-      catch( Exception e )
-      {
-         System.out.println( e.toString() );
-      }
+           this.input_from_client = new BufferedReader( new InputStreamReader( clientSocket.getInputStream()));
+            System.out.println("A client has connected...");
 
 
-   }
+        }
+
+        public void echoClientInput () throws IOException
+        {
+            String s;
+
+            s = this.input_from_client.readLine();
+            System.out.println("Client says:" + s);
+        }
+
+
+        public static void main (String[]args )
+        {
+            System.out.println("This is our echo server.../n");
+
+            try {
+                NetExample echoServer = new NetExample();
+                echoServer.waitForClient();   // wrote this first because this is how we want the server to behave
+                echoServer.echoClientInput(); // wrote this first because this is how we want the server to behave
+            } catch (Exception e) {
+                System.out.println("Exception:" + e.toString());
+            }
+        }
 }

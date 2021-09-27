@@ -13,9 +13,10 @@ public class Position
 	
 	public boolean equals( Position p )
 	{
-		if( this.x == p.x && this.y == p.y )
-			return true;
-		return false;
+		return this.x == p.x && this.y == p.y;
+		//if( this.x == p.x && this.y == p.y )
+		//	return true;
+		//return false;
 	}
 
 }
