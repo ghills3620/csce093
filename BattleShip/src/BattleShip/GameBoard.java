@@ -120,6 +120,7 @@ public class GameBoard
 	//was hit to the player who hit it.
 	//Ensure you handle missiles that may fly off the grid
 	public Ship fireMissle( Position coordinate )
+
 	{
 		return null;
 	}
